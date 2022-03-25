@@ -17,6 +17,10 @@ inputs:
     description: Number of days to retain report artifact for
     required: false
 
+outputs:
+  test-results:
+    description: JSON summary of test results
+
 runs:
   using: node16
   main: dist/index.js

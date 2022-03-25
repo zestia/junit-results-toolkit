@@ -13,10 +13,39 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-          cache: npm
 
       - name: Install packages
         run: npm ci
 
       - name: Test
         run: npm run build
+
+      - uses: ./
+        id: run-action
+        with:
+          files: .github/workflows/test-data/junit.xml
+          upload-report: false
+
+      - name: Verify output
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const assert = require('assert').strict;
+            const data = JSON.parse('${{ steps.run-action.outputs.test-results }}');
+            
+            assert.strictEqual(data.name, 'unit-test', 'project name');
+            
+            // test summary
+            assert.strictEqual(data.summary.duration, 2.017, 'summary duration');
+            assert.strictEqual(data.summary.tests, 2, 'summary total tests');
+            assert.strictEqual(data.summary.passed, 1, 'summary passed');
+            assert.strictEqual(data.summary.failed, 1, 'summary failed');
+            assert.strictEqual(data.summary.skipped, 0, 'summary skipped');
+            
+            // test suites
+            assert.strictEqual(data.suites.length, 1, 'test suite count');
+            assert.strictEqual(data.suites[0].duration, 2.017, 'summary duration');
+            assert.strictEqual(data.suites[0].tests, 2, 'summary total tests');
+            assert.strictEqual(data.suites[0].passed, 1, 'summary passed');
+            assert.strictEqual(data.suites[0].failed, 1, 'summary failed');
+            assert.strictEqual(data.suites[0].skipped, 0, 'summary skipped');
