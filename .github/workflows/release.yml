@@ -44,6 +44,7 @@ jobs:
           commit-message: Publish version "${{ steps.semver-version.outputs.fullversion }}'
           files: |
             dist/index.js
+            dist/report.ejs
             package.json
 
       - name: Tag release
