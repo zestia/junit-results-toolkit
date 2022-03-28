@@ -8,28 +8,29 @@ To parse test results in JUnit XML format add this action as a step:
 
 ```yaml
 jobs:
-  steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-java@v2
-      with:
-        java-version: 11
-
-    - name: Run unit tests
-      run: sbt test
-
-    - name: Parse Test Results
-      uses: zestia/junit-results-toolkit@v1
-      id: test-results
-      if: ${{ always() }}
-      with:
-        files: '**/TEST-*.xml'
-
-    - name: Send Test Results
-      run: |
-        echo "Test Results:"
-        echo "  Passed:  ${{ fromJson(steps.test-results.outputs.test.results).passed }}"
-        echo "  Failed:  ${{ fromJson(steps.test-results.outputs.test.results).failed }}"
-        echo "  Skipped: ${{ fromJson(steps.test-results.outputs.test.results).skipped }}"
+  java-build:
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-java@v2
+          with:
+            java-version: 11
+    
+        - name: Run unit tests
+          run: sbt test
+    
+        - name: Parse Test Results
+          uses: zestia/junit-results-toolkit@v1
+          id: test-results
+          if: ${{ always() }}
+          with:
+            files: '**/TEST-*.xml'
+    
+        - name: Echo Test Results
+          run: |
+            echo "Test Results:"
+            echo "  Passed:  ${{ fromJson(steps.test-results.outputs.test.results).passed }}"
+            echo "  Failed:  ${{ fromJson(steps.test-results.outputs.test.results).failed }}"
+            echo "  Skipped: ${{ fromJson(steps.test-results.outputs.test.results).skipped }}"
 ```
 
 **Note:** it is important to add an `if` clause to ensure that the test results are always parsed. 
