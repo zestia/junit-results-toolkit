@@ -34,18 +34,11 @@ jobs:
       - name: Build Source
         run: npm run build
 
-      - run: find . -type f
-
       - name: Commit changes
-        uses: swinton/commit@v2.x
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          commit-message: Publish version "${{ steps.semver-version.outputs.fullversion }}'
-          files: |
-            dist/index.js
-            dist/report.ejs
-            package.json
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git commit -a -m "Release ${{ steps.semver-version.outputs.fullversion }}"
 
       - name: Tag release
         run: |
