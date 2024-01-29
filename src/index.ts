@@ -50,7 +50,7 @@ async function uploadReports(
   tmpDir: string,
   reports: string[],
   artifactName: string,
-  retentionDays: number | null,
+  retentionDays: number | undefined,
 ): Promise<void> {
   const artifactClient = artifact.create();
   await artifactClient.uploadArtifact(artifactName, reports, tmpDir, { retentionDays });

@@ -10,8 +10,8 @@ To parse test results in JUnit XML format add this action as a step:
 jobs:
   java-build:
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: 11
 
@@ -19,7 +19,7 @@ jobs:
         run: sbt test
 
       - name: Parse Test Results
-        uses: zestia/junit-results-toolkit@v1
+        uses: zestia/junit-results-toolkit@v2
         id: test-results
         if: ${{ always() }}
         with:
