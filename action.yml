@@ -22,5 +22,5 @@ outputs:
     description: JSON summary of test results
 
 runs:
-  using: node16
+  using: node20
   main: dist/index.js
