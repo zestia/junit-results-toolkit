@@ -1,8 +1,7 @@
 import * as core from '@actions/core';
 import * as glob from '@actions/glob';
 import { Globber } from '@actions/glob';
-import * as artifact from '@actions/artifact';
-
+import { DefaultArtifactClient } from '@actions/artifact';
 import { promises as fsPromises } from 'fs';
 import * as path from 'path';
 import * as os from 'os';
@@ -52,7 +51,7 @@ async function uploadReports(
   artifactName: string,
   retentionDays: number | undefined,
 ): Promise<void> {
-  const artifactClient = artifact.create();
+  const artifactClient = new DefaultArtifactClient();
   await artifactClient.uploadArtifact(artifactName, reports, tmpDir, { retentionDays });
 }
 

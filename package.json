@@ -1,6 +1,6 @@
 {
   "name": "junit-results-toolkit",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "GitHub action for parsing JUnit results and generating reports",
   "main": "dist/index.js",
   "scripts": {
@@ -10,11 +10,11 @@
   "author": "Michael Stringer",
   "license": "Apache-2.0",
   "dependencies": {
-    "@actions/artifact": "^1.0.0",
+    "@actions/artifact": "^2.1.11",
     "@actions/core": "^1.6.0",
     "@actions/github": "^6.0.0",
-    "@actions/glob": "^0.4.0",
-    "date-fns": "^3.3.1",
+    "@actions/glob": "^0.5.0",
+    "date-fns": "^4.1.0",
     "ejs": "^3.1.6",
     "junitxml-to-javascript": "^1.1.4"
   },
