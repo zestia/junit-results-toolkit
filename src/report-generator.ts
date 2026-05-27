@@ -1,9 +1,11 @@
-import * as ejs from 'ejs';
+import ejs from 'ejs';
 import { promises as fsPromises } from 'fs';
 import * as path from 'path';
 import { TestSuite } from 'junitxml-to-javascript';
 import { ProjectReport } from './model/ProjectReport';
 import { format, formatDuration, intervalToDuration } from 'date-fns';
+
+const __dirname = import.meta.dirname;
 
 function formatTestDuration(s: number): string {
   if (s < 60) {

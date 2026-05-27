@@ -6,8 +6,8 @@ import { promises as fsPromises } from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import { context } from '@actions/github';
-import JUnitLoader from './JUnitLoader';
-import { generateHtmlReport, generateJsonReport } from './report-generator';
+import JUnitLoader from "./JUnitLoader.js";
+import { generateHtmlReport, generateJsonReport } from './report-generator.js';
 
 const JUNIT_LOADER = new JUnitLoader();
 
